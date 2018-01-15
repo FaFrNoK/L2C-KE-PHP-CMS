@@ -11,7 +11,12 @@ if(!empty($_POST)){
         if($result != false){
             $user = mysqli_fetch_object($result);
             if($user->password == $_POST['password']){
-                var_dump($user->email);
+                            
+            session_start();
+            $_SESSION['email'] = $user->email;
+
+            header("Location: index.php");
+
             }
         }
     }

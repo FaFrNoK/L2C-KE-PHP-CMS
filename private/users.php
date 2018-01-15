@@ -1,10 +1,47 @@
 <?php
-
+require_once dirname(__FILE__).'/../framework/loggedin.php';
 require_once dirname(__FILE__).'/../framework/helpers.php';
+
+if(!empty($_POST)){
+	
+	if(!empty($_POST['action'])){
+
+		switch($_POST['action']){
+			
+			case 'insert':
+			if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['nickname'])){
+			$query = "insert into users(email,password,nickname) value ('".$_POST['email']."','".$_POST['password']."','".$_POST['nickname']."')";
+			db_query($query);
+			}
+			break;
+
+			case 'update':
+			if(!empty($_POST['id'])){
+				if(!empty($_POST['email']) && !empty($_POST['nickname'])){
+			$query = "update users set email = '".$_POST['email']."', nickname ='".$_POST['nickname']."' where id =". $_POST['id'];		
+			db_query($query);
+				}
+			}
+			break;
+
+			case 'delete':
+			if(!empty($_POST['id'])){
+			$query = "delete from users where id =". $_POST['id'];		
+			db_query($query);
+			}
+			break;
+			
+			default:
+			break;
+		}
+	}
+}
+
 
 $result = db_query("select * from users");
 
 ?>
+
 
 
 
@@ -48,6 +85,7 @@ $result = db_query("select * from users");
 			<div class="row">
 				<div class="col-sm-12 col-md-12 main">
 					<h1 class="page-header">Users</h1>
+					<a href="user.php" >Add new user </a>
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
