@@ -33,7 +33,11 @@ if(!empty($_POST)){
 			
 			default:
 			break;
+
+
 		}
+
+		header("Location: users.php");
 	}
 }
 
@@ -60,26 +64,11 @@ $result = db_query("select * from users");
 
 	<body>
 
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Project name</a>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.php">Dashboard</a></li>
-					<li><a href="users.php">Users</a></li>
-					<li><a href="pages.php">Pages</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+	<?php
+
+	require_once dirname(__FILE__).'/parts/header.php';
+
+	?>
 
 		<div class="container-fluid">
 			<div class="row">
@@ -93,6 +82,7 @@ $result = db_query("select * from users");
 									<th>id</th>
 									<th>email</th>
 									<th>nickname</th>
+									<th>actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -107,6 +97,7 @@ while($user = mysqli_fetch_assoc($result)){
 									<td><?php echo $user['id']; ?></td>
 									<td><?php echo $user['email']; ?></td>
 									<td><?php echo $user['nickname']; ?></td>
+									<td><a href="user.php?id=<?php echo $user['id']; ?>">Update</a></td>
 								</tr>
 								<!-- add PHP here -->
 <?php

@@ -19,6 +19,8 @@ $result = db_query("select * from pages;");
     <title>Blog Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="assets/css/main.css" rel="stylesheet">
  
   </head>
 

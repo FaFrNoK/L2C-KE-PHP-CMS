@@ -15,6 +15,8 @@ if(!empty($_POST)){
             session_start();
             $_SESSION['email'] = $user->email;
 
+            $_SESSION['id'] = $user->id;
+
             header("Location: index.php");
 
             }

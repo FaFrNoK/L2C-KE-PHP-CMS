@@ -34,6 +34,7 @@ if(!empty($_POST)){
 			default:
 			break;
 		}
+		header("Location: pages.php");
 	}
 }
 
@@ -56,26 +57,11 @@ $result = db_query("select * from pages");
 
 	<body>
 
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Project name</a>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.php">Dashboard</a></li>
-					<li><a href="users.php">Users</a></li>
-					<li><a href="pages.php">Pages</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+	<?php
+
+	require_once dirname(__FILE__).'/parts/header.php';
+
+	?>
 
 		<div class="container-fluid">
 			<div class="row">
@@ -92,8 +78,8 @@ $result = db_query("select * from pages");
                                     <th>user_id</th>
                                     <th>menu_label</th>
                                     <th>menu_order</th>
-
-
+									<th>author</th>
+									<th>actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -111,6 +97,14 @@ while($page = mysqli_fetch_assoc($result)){
                                     <td><?php echo $page['user_id']; ?></td>
                                     <td><?php echo $page['menu_label']; ?></td>
                                     <td><?php echo $page['menu_order']; ?></td>
+
+									<?php
+									$user_query = db_query("select * from users where id = ".$page['user_id']);
+									$user = mysqli_fetch_assoc($user_query);
+									?>
+
+									<td><a href="user.php?id=<?php echo $user['id']; ?>"><?php echo $user['nickname']; ?></a></td>
+									<td><a href="page.php?id=<?php echo $page['id'];?>">Update</a></td>
 								</tr>
 								<!-- add PHP here -->
 <?php
